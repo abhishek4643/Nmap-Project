@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🔍 Nmap-Project
+# Nmap-Project
 
 ### **Automated Network Scanning & Security Auditing Toolkit**
 
@@ -9,13 +9,13 @@ _Powerful shell scripts for network reconnaissance and vulnerability assessment_
 [![Shell](https://img.shields.io/badge/Shell_Script-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://www.gnu.org/software/bash/)
 [![Nmap](https://img.shields.io/badge/Nmap-4682B4?style=for-the-badge&logo=nmap&logoColor=white)](https://nmap.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](https://opensource.org/licenses/MIT)
-[![Security](https://img.shields.io/badge/🔒_Cybersecurity-Tool-red?style=for-the-badge)](https://github.com/abhishek4643/Nmap-Project)
+[![Security](https://img.shields.io/badge/_Cybersecurity-Tool-red?style=for-the-badge)](https://github.com/abhishek4643/Nmap-Project)
 
 </div>
 
 ---
 
-## 📌 About
+## About
 
 **Nmap-Project** is a collection of automated shell scripts built on top of [Nmap](https://nmap.org/) — the world's most popular network scanner. It simplifies complex network security operations into easy-to-use scripts, enabling security professionals and system administrators to perform comprehensive network audits with a single command.
 
@@ -23,22 +23,22 @@ _Powerful shell scripts for network reconnaissance and vulnerability assessment_
 
 ---
 
-## 🧰 What's Included
+## What's Included
 
 | Script / Feature | Description |
 |------------------|-------------|
-| 🌐 **Host Discovery** | Identify active hosts on a network segment |
-| 🔓 **Port Scanning** | Detect open ports and running services |
-| 🛡️ **Vulnerability Detection** | Scan for known vulnerabilities using NSE scripts |
-| 🖥️ **OS Fingerprinting** | Identify operating systems of target machines |
-| 📡 **Service Version Detection** | Determine versions of services running on open ports |
-| 📊 **Report Generation** | Export scan results in XML, JSON, and human-readable formats |
-| ⚡ **Stealth Scanning** | SYN scans and other techniques to avoid IDS detection |
-| 🔁 **Batch Scanning** | Scan multiple targets from a file simultaneously |
+| **Host Discovery** | Identify active hosts on a network segment |
+| **Port Scanning** | Detect open ports and running services |
+| **Vulnerability Detection** | Scan for known vulnerabilities using NSE scripts |
+| **OS Fingerprinting** | Identify operating systems of target machines |
+| **Service Version Detection** | Determine versions of services running on open ports |
+| **Report Generation** | Export scan results in XML, JSON, and human-readable formats |
+| **Stealth Scanning** | SYN scans and other techniques to avoid IDS detection |
+| **Batch Scanning** | Scan multiple targets from a file simultaneously |
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ```
 Language:       Shell Script (Bash)
@@ -50,7 +50,7 @@ License:        MIT
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - **Nmap** installed on your system
@@ -90,7 +90,7 @@ chmod +x *.sh
 
 ---
 
-## 📋 Scan Types Available
+## Scan Types Available
 
 | Scan Type | Command Flag | Use Case |
 |-----------|-------------|----------|
@@ -103,13 +103,13 @@ chmod +x *.sh
 
 ---
 
-## ⚠️ Disclaimer
+## Disclaimer
 
 > **This tool is intended for authorized security testing and educational purposes only.** Unauthorized scanning of networks you do not own or have explicit permission to test is **illegal** and **unethical**. Always obtain proper authorization before scanning any network.
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 Nmap-Project/
@@ -125,7 +125,7 @@ Nmap-Project/
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
@@ -133,6 +133,6 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 <div align="center">
 
-_Securing networks, one scan at a time_ 🔍
+_Securing networks, one scan at a time_
 
 </div>
