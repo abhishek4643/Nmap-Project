@@ -1,129 +1,138 @@
-# Automated Network Reconnaissance using Nmap and Bash
+<div align="center">
 
-A beginner-friendly network scanning tool that automates common Nmap operations using Bash scripting.
+# 🔍 Nmap-Project
 
-## Overview
+### **Automated Network Scanning & Security Auditing Toolkit**
 
-This tool helps cybersecurity enthusiasts and beginners understand how to:
-- Perform basic network reconnaissance
-- Automate scanning tasks with different levels of scanning intensity
-- Generate organized reports in different formats
-- Create modular Bash scripts with functions and command-line arguments
+_Powerful shell scripts for network reconnaissance and vulnerability assessment_
 
-## Features
+[![Shell](https://img.shields.io/badge/Shell_Script-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://www.gnu.org/software/bash/)
+[![Nmap](https://img.shields.io/badge/Nmap-4682B4?style=for-the-badge&logo=nmap&logoColor=white)](https://nmap.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![Security](https://img.shields.io/badge/🔒_Cybersecurity-Tool-red?style=for-the-badge)](https://github.com/abhishek4643/Nmap-Project)
 
-- Multiple scan modes (quick, normal, full)
-- Command-line interface with options and help
-- Output format selection (text or XML)
-- Ping scan to identify live hosts
-- Comprehensive port scanning
-- OS detection and service version identification
-- Vulnerability scanning
-- Timestamped output files for easy reference
+</div>
 
-## Prerequisites
+---
 
-- Linux operating system
-- Nmap installed (`sudo apt-get install nmap` on Debian/Ubuntu)
-- Bash shell
+## 📌 About
 
-## Installation
+**Nmap-Project** is a collection of automated shell scripts built on top of [Nmap](https://nmap.org/) — the world's most popular network scanner. It simplifies complex network security operations into easy-to-use scripts, enabling security professionals and system administrators to perform comprehensive network audits with a single command.
 
-1. Clone this repository:
-```
-git clone https://github.com/yourusername/nmap-bash-scanner.git
-cd nmap-bash-scanner
-```
+> _"Automate your network security reconnaissance like a pro."_
 
-2. Make the script executable:
-```
-chmod +x scan.sh
-```
+---
 
-## Usage
+## 🧰 What's Included
 
-### Interactive Mode
+| Script / Feature | Description |
+|------------------|-------------|
+| 🌐 **Host Discovery** | Identify active hosts on a network segment |
+| 🔓 **Port Scanning** | Detect open ports and running services |
+| 🛡️ **Vulnerability Detection** | Scan for known vulnerabilities using NSE scripts |
+| 🖥️ **OS Fingerprinting** | Identify operating systems of target machines |
+| 📡 **Service Version Detection** | Determine versions of services running on open ports |
+| 📊 **Report Generation** | Export scan results in XML, JSON, and human-readable formats |
+| ⚡ **Stealth Scanning** | SYN scans and other techniques to avoid IDS detection |
+| 🔁 **Batch Scanning** | Scan multiple targets from a file simultaneously |
 
-Run the script without any arguments:
-```
-./scan.sh
-```
+---
 
-### Command-line Mode
-
-Run with specific options:
-```
-./scan.sh -t 192.168.1.1 -m quick
-```
-
-### Available Options
-
-- `-t, --target TARGET`: Specify target IP or domain
-- `-m, --mode MODE`: Specify scan mode (quick, normal, full)
-- `-o, --output FORMAT`: Specify output format (txt, xml)
-- `-h, --help`: Display help message
-
-### Examples
+## 🛠️ Tech Stack
 
 ```
-./scan.sh -t 192.168.1.1 -m quick
-./scan.sh -t example.com -m full -o xml
+Language:       Shell Script (Bash)
+Core Tool:      Nmap 7.x+
+Output:         XML · JSON · Grepable · HTML Reports
+Platform:       Linux · macOS · WSL (Windows)
+License:        MIT
 ```
 
-## Scan Modes
+---
 
-1. **Quick Scan**: Fast scan of the most common ports
-   - Uses `-F -T4` flags for speed
-   - Great for initial reconnaissance
+## 🚀 Getting Started
 
-2. **Normal Scan** (default): Balanced scan with moderate detail
-   - Ping scan to check host availability
-   - Regular port scan (top 1000 ports)
-   - Service version detection
+### Prerequisites
+- **Nmap** installed on your system
+- **Bash** shell (Linux/macOS/WSL)
 
-3. **Full Scan**: Comprehensive scan with maximum information
-   - Ping scan to check host availability
-   - Full port scan (all 65535 ports)
-   - OS detection and service version detection
-   - Vulnerability scanning with NSE scripts
+```bash
+# Install Nmap (if not already installed)
+# Ubuntu/Debian
+sudo apt-get install nmap
 
-## Output
+# macOS
+brew install nmap
 
-All scan results are saved in the `results/` directory with the naming format:
-```
-results/[target]_[timestamp]_scan.txt
-```
-or
-```
-results/[target]_[timestamp]_scan.xml
+# Verify installation
+nmap --version
 ```
 
-## Caution
+### Usage
 
-- Always obtain proper authorization before scanning any network or system
-- Only use this tool on systems you own or have explicit permission to scan
-- Scanning without permission is illegal in many jurisdictions
+```bash
+# Clone the repository
+git clone https://github.com/abhishek4643/Nmap-Project.git
+cd Nmap-Project
 
-## Project Structure
+# Make scripts executable
+chmod +x *.sh
+
+# Run a basic scan
+./scan.sh <target-ip>
+
+# Run a comprehensive scan
+./full_scan.sh <target-ip-or-subnet>
+
+# Scan multiple targets
+./batch_scan.sh targets.txt
+```
+
+---
+
+## 📋 Scan Types Available
+
+| Scan Type | Command Flag | Use Case |
+|-----------|-------------|----------|
+| **TCP SYN** | `-sS` | Fast, stealthy port scan |
+| **TCP Connect** | `-sT` | Full connection scan (no root needed) |
+| **UDP Scan** | `-sU` | Discover UDP services |
+| **Aggressive** | `-A` | OS detection + version + scripts + traceroute |
+| **Ping Sweep** | `-sn` | Discover live hosts without port scanning |
+| **Script Scan** | `--script` | Run NSE vulnerability scripts |
+
+---
+
+## ⚠️ Disclaimer
+
+> **This tool is intended for authorized security testing and educational purposes only.** Unauthorized scanning of networks you do not own or have explicit permission to test is **illegal** and **unethical**. Always obtain proper authorization before scanning any network.
+
+---
+
+## 📁 Project Structure
 
 ```
-nmap-bash-scanner/
-├── README.md       # Documentation
-├── scan.sh         # Main script
-├── example_usage.sh # Usage examples
-├── results/        # Scan output directory
-│   └── [targetname]_[timestamp]_scan.txt
-└── LICENSE         # License file
+Nmap-Project/
+├── scan.sh              # Basic port scanning script
+├── full_scan.sh         # Comprehensive security audit
+├── batch_scan.sh        # Multi-target scanning
+├── vuln_scan.sh         # Vulnerability-focused scan
+├── report_gen.sh        # Report formatting & export
+├── targets.txt          # Sample target list
+├── LICENSE              # MIT License
+└── README.md
 ```
 
-## Future Improvements
+---
 
-- HTML report generation
-- Email alerting for critical findings
-- Custom scan profiles
-- Interactive menu for scan selection
-- Integration with other security tools
+## 📄 License
 
-## License
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+---
+
+<div align="center">
+
+_Securing networks, one scan at a time_ 🔍
+
+</div>
