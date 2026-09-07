@@ -1,111 +1,89 @@
-<div align="center">
+# Automated Network Reconnaissance Tool
 
-# Nmap-Project
+An automated network reconnaissance and vulnerability auditing toolkit built with Bash and Nmap, designed to perform rapid host discovery, comprehensive port enumeration, and structured security reporting.
 
-### **Automated Network Scanning & Security Auditing Toolkit**
-
-_Powerful shell scripts for network reconnaissance and vulnerability assessment_
-
-[![Shell](https://img.shields.io/badge/Shell_Script-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://www.gnu.org/software/bash/)
-[![Nmap](https://img.shields.io/badge/Nmap-4682B4?style=for-the-badge&logo=nmap&logoColor=white)](https://nmap.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](https://opensource.org/licenses/MIT)
-[![Security](https://img.shields.io/badge/_Cybersecurity-Tool-red?style=for-the-badge)](https://github.com/abhishek4643/Nmap-Project)
-
-</div>
+[![Language](https://img.shields.io/badge/Language-Bash_Script-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://www.gnu.org/software/bash/)
+[![Engine](https://img.shields.io/badge/Security-Nmap-002B36?style=for-the-badge)](https://nmap.org/)
+[![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
+[![Platform](https://img.shields.io/badge/Platform-Linux_|_Unix_|_macOS-FCC624?style=for-the-badge&logo=linux&logoColor=black)](https://www.kernel.org/)
 
 ---
 
-## About
+## Project Overview
 
-**Nmap-Project** is a collection of automated shell scripts built on top of [Nmap](https://nmap.org/) — the world's most popular network scanner. It simplifies complex network security operations into easy-to-use scripts, enabling security professionals and system administrators to perform comprehensive network audits with a single command.
+Conducting manual network reconnaissance across enterprise infrastructure is repetitive and prone to inconsistent documentation. The Automated Network Reconnaissance Tool standardizes scanning workflows into an efficient, scriptable Bash utility. By encapsulating Nmap's powerful scanning primitives behind configurable execution modes (`quick`, `normal`, `full`), security professionals can rapidly discover live systems, detect outdated services, and produce formatted audit reports.
 
-> _"Automate your network security reconnaissance like a pro."_
-
----
-
-## What's Included
-
-| Script / Feature | Description |
-|------------------|-------------|
-| **Host Discovery** | Identify active hosts on a network segment |
-| **Port Scanning** | Detect open ports and running services |
-| **Vulnerability Detection** | Scan for known vulnerabilities using NSE scripts |
-| **OS Fingerprinting** | Identify operating systems of target machines |
-| **Service Version Detection** | Determine versions of services running on open ports |
-| **Report Generation** | Export scan results in XML, JSON, and human-readable formats |
-| **Stealth Scanning** | SYN scans and other techniques to avoid IDS detection |
-| **Batch Scanning** | Scan multiple targets from a file simultaneously |
+**Vision:** Streamline security assessments and perimeter auditing through reliable, repeatable automation that adheres to security best practices.
 
 ---
 
-## Tech Stack
+## Key Features
+
+- **Multi-Tier Scan Modes:**
+  - `quick`: Fast SYN scan targeting top standard ports for rapid discovery.
+  - `normal`: Standard TCP port scan with service banner grabbing and default NSE script execution.
+  - `full`: Exhaustive 65,535 port audit with aggressive operating system fingerprinting and vulnerability detection scripts.
+- **Structured Output Generation:** Generates clean plaintext reports and machine-parseable XML files suitable for SIEM or vulnerability pipeline ingestion.
+- **Robust Command-Line Interface:** Standardized argument parsing supporting flags (`-t/--target`, `-m/--mode`, `-o/--output`, `-h/--help`).
+- **Target Flexibility:** Supports scanning individual IPv4/IPv6 addresses, fully qualified domain names (FQDNs), and CIDR subnet notations.
+- **Execution Safeguards:** Validates target reachability, verifies user permissions, and ensures necessary dependencies are installed before execution.
+
+---
+
+## Use Cases
+
+### For Penetration Testers & Red Teams
+- Quickly execute standardized host discovery and service enumeration during initial engagement phases.
+- Automate report generation to maintain an auditable paper trail of reconnaissance actions.
+
+### For System Administrators & Blue Teams
+- Audit network perimeter surfaces regularly to catch rogue services or unintentionally exposed ports.
+- Validate firewall filtering rules following infrastructure migrations or configuration updates.
+
+---
+
+## System Architecture
 
 ```
-Language:       Shell Script (Bash)
-Core Tool:      Nmap 7.x+
-Output:         XML · JSON · Grepable · HTML Reports
-Platform:       Linux · macOS · WSL (Windows)
-License:        MIT
-```
-
----
-
-## Getting Started
-
-### Prerequisites
-- **Nmap** installed on your system
-- **Bash** shell (Linux/macOS/WSL)
-
-```bash
-# Install Nmap (if not already installed)
-# Ubuntu/Debian
-sudo apt-get install nmap
-
-# macOS
-brew install nmap
-
-# Verify installation
-nmap --version
-```
-
-### Usage
-
-```bash
-# Clone the repository
-git clone https://github.com/abhishek4643/Nmap-Project.git
-cd Nmap-Project
-
-# Make scripts executable
-chmod +x *.sh
-
-# Run a basic scan
-./scan.sh <target-ip>
-
-# Run a comprehensive scan
-./full_scan.sh <target-ip-or-subnet>
-
-# Scan multiple targets
-./batch_scan.sh targets.txt
++---------------------------------------------------------------+
+|               Command-Line Invocation (scan.sh)               |
+|  Flags: -t <target>  -m <quick|normal|full>  -o <txt|xml>    |
++---------------------------------------------------------------+
+                                |
+                                v
++---------------------------------------------------------------+
+|                  Execution & Parsing Engine                   |
+|  - Parameter Validation        - Target Resolution            |
+|  - Scan Profile Selection      - Dependency Verification      |
++---------------------------------------------------------------+
+                                |
+                                v
++---------------------------------------------------------------+
+|                    Nmap Engine Orchestration                  |
+|  - Quick: Fast TCP SYN Scan (-F -T4)                          |
+|  - Normal: Service Detection (-sV -sC -T4)                   |
+|  - Full: All Ports + Aggressive NSE Scripting (-p- -A)       |
++---------------------------------------------------------------+
+                                |
+                                v
++---------------------------------------------------------------+
+|                       Report Artifacts                        |
+|  - Structured Plaintext Report (.txt)                         |
+|  - Machine-Parseable XML (.xml)                               |
++---------------------------------------------------------------+
 ```
 
 ---
 
-## Scan Types Available
+## Technology Stack
 
-| Scan Type | Command Flag | Use Case |
-|-----------|-------------|----------|
-| **TCP SYN** | `-sS` | Fast, stealthy port scan |
-| **TCP Connect** | `-sT` | Full connection scan (no root needed) |
-| **UDP Scan** | `-sU` | Discover UDP services |
-| **Aggressive** | `-A` | OS detection + version + scripts + traceroute |
-| **Ping Sweep** | `-sn` | Discover live hosts without port scanning |
-| **Script Scan** | `--script` | Run NSE vulnerability scripts |
-
----
-
-## Disclaimer
-
-> **This tool is intended for authorized security testing and educational purposes only.** Unauthorized scanning of networks you do not own or have explicit permission to test is **illegal** and **unethical**. Always obtain proper authorization before scanning any network.
+| Layer | Technologies |
+|---|---|
+| Scripting Language | Bash (Bourne-Again SHell) >= 4.0 |
+| Core Reconnaissance Engine | Nmap (Network Mapper) >= 7.80 |
+| Utilities | POSIX Coreutils (grep, sed, awk, date, tee) |
+| Output Formats | Plaintext (.txt), XML (.xml) |
+| Target Platforms | Linux (Ubuntu, Debian, Kali, Arch), macOS |
 
 ---
 
@@ -113,26 +91,84 @@ chmod +x *.sh
 
 ```
 Nmap-Project/
-├── scan.sh              # Basic port scanning script
-├── full_scan.sh         # Comprehensive security audit
-├── batch_scan.sh        # Multi-target scanning
-├── vuln_scan.sh         # Vulnerability-focused scan
-├── report_gen.sh        # Report formatting & export
-├── targets.txt          # Sample target list
-├── LICENSE              # MIT License
-└── README.md
+├── scan.sh                     # Main automated reconnaissance script
+├── example_usage.sh            # Demonstration scenarios and automated test runs
+├── RUNNING_INSTRUCTIONS.txt    # Step-by-step setup and execution guide
+├── LICENSE                     # MIT open-source license
+└── README.md                   # Project documentation
 ```
+
+---
+
+## Getting Started
+
+### Prerequisites
+- POSIX-compliant operating system (Linux, macOS, or WSL2 on Windows)
+- Bash 4.0 or higher
+- Nmap installed and accessible via `PATH`
+
+Install Nmap on Debian/Ubuntu/Kali:
+```bash
+sudo apt update && sudo apt install -y nmap
+```
+
+Install Nmap on macOS (via Homebrew):
+```bash
+brew install nmap
+```
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/abhishek4643/Nmap-Project.git
+   cd Nmap-Project
+   ```
+
+2. Grant execution permissions:
+   ```bash
+   chmod +x scan.sh example_usage.sh
+   ```
+
+### Usage Examples
+
+Display help and available options:
+```bash
+./scan.sh -h
+```
+
+Execute a rapid scan against a target:
+```bash
+./scan.sh -t 192.168.1.1 -m quick
+```
+
+Perform a comprehensive scan with XML report output:
+```bash
+sudo ./scan.sh -t scanme.nmap.org -m full -o xml
+```
+
+Run the pre-configured demonstration scenarios:
+```bash
+./example_usage.sh
+```
+
+---
+
+## Future Roadmap
+
+- Automated HTML dashboard report generation using custom XSL stylesheets.
+- Slack and Discord webhook integration to broadcast critical open port discoveries.
+- Passive DNS and WHOIS reconnaissance module integration.
+- Multi-threaded batch CIDR subnet scanning queue.
+
+---
+
+## Disclaimer
+
+This tool is designed strictly for authorized educational and defensive security auditing purposes. Scanning targets without explicit prior authorization is illegal. The author assumes no liability for misuse.
 
 ---
 
 ## License
 
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
-
----
-
-<div align="center">
-
-_Securing networks, one scan at a time_
-
-</div>
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
