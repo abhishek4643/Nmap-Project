@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 180" width="100%" height="100%">
+  <defs>
+    <filter id="swatch-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="920" height="180" rx="12" fill="#0B0F19"/>
+
+  <!-- Subtle Blueprint Border -->
+  <rect x="1" y="1" width="918" height="178" rx="11" fill="none" stroke="#1E293B" stroke-width="1.2"/>
+
+  <!-- Swatch 1: Primary Blue -->
+  <g transform="translate(18, 18)" filter="url(#swatch-shadow)">
+    <rect width="100" height="144" rx="10" fill="#111827" stroke="#1E293B" stroke-width="1"/>
+    <rect x="10" y="10" width="80" height="52" rx="6" fill="#536DFE"/>
+    <text x="50" y="80" text-anchor="middle" fill="#F8FAFC" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700">Primary</text>
+    <text x="50" y="96" text-anchor="middle" fill="#536DFE" font-family="ui-monospace, monospace" font-size="10" font-weight="600">#536DFE</text>
+    <line x1="16" y1="108" x2="84" y2="108" stroke="#1E293B" stroke-width="1"/>
+    <text x="50" y="123" text-anchor="middle" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="9">CLI Accent</text>
+    <text x="50" y="135" text-anchor="middle" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="9">Active Flags</text>
+  </g>
+
+  <!-- Swatch 2: Secondary Purple -->
+  <g transform="translate(128, 18)" filter="url(#swatch-shadow)">
+    <rect width="100" height="144" rx="10" fill="#111827" stroke="#1E293B" stroke-width="1"/>
+    <rect x="10" y="10" width="80" height="52" rx="6" fill="#8B5CF6"/>
+    <text x="50" y="80" text-anchor="middle" fill="#F8FAFC" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700">Secondary</text>
+    <text x="50" y="96" text-anchor="middle" fill="#8B5CF6" font-family="ui-monospace, monospace" font-size="10" font-weight="600">#8B5CF6</text>
+    <line x1="16" y1="108" x2="84" y2="108" stroke="#1E293B" stroke-width="1"/>
+    <text x="50" y="123" text-anchor="middle" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="9">NSE Scripts</text>
+    <text x="50" y="135" text-anchor="middle" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="9">Port Categories</text>
+  </g>
+
+  <!-- Swatch 3: Success Green -->
+  <g transform="translate(238, 18)" filter="url(#swatch-shadow)">
+    <rect width="100" height="144" rx="10" fill="#111827" stroke="#1E293B" stroke-width="1"/>
+    <rect x="10" y="10" width="80" height="52" rx="6" fill="#10B981"/>
+    <text x="50" y="80" text-anchor="middle" fill="#F8FAFC" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700">Success</text>
+    <text x="50" y="96" text-anchor="middle" fill="#10B981" font-family="ui-monospace, monospace" font-size="10" font-weight="600">#10B981</text>
+    <line x1="16" y1="108" x2="84" y2="108" stroke="#1E293B" stroke-width="1"/>
+    <text x="50" y="123" text-anchor="middle" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="9">Host Up</text>
+    <text x="50" y="135" text-anchor="middle" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="9">Open Port</text>
+  </g>
+
+  <!-- Swatch 4: Warning Orange -->
+  <g transform="translate(348, 18)" filter="url(#swatch-shadow)">
+    <rect width="100" height="144" rx="10" fill="#111827" stroke="#1E293B" stroke-width="1"/>
+    <rect x="10" y="10" width="80" height="52" rx="6" fill="#F59E0B"/>
+    <text x="50" y="80" text-anchor="middle" fill="#F8FAFC" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700">Warning</text>
+    <text x="50" y="96" text-anchor="middle" fill="#F59E0B" font-family="ui-monospace, monospace" font-size="10" font-weight="600">#F59E0B</text>
+    <line x1="16" y1="108" x2="84" y2="108" stroke="#1E293B" stroke-width="1"/>
+    <text x="50" y="123" text-anchor="middle" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="9">Filtered Port</text>
+    <text x="50" y="135" text-anchor="middle" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="9">Slow Response</text>
+  </g>
+
+  <!-- Swatch 5: Error Red -->
+  <g transform="translate(458, 18)" filter="url(#swatch-shadow)">
+    <rect width="100" height="144" rx="10" fill="#111827" stroke="#1E293B" stroke-width="1"/>
+    <rect x="10" y="10" width="80" height="52" rx="6" fill="#EF4444"/>
+    <text x="50" y="80" text-anchor="middle" fill="#F8FAFC" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700">Error</text>
+    <text x="50" y="96" text-anchor="middle" fill="#EF4444" font-family="ui-monospace, monospace" font-size="10" font-weight="600">#EF4444</text>
+    <line x1="16" y1="108" x2="84" y2="108" stroke="#1E293B" stroke-width="1"/>
+    <text x="50" y="123" text-anchor="middle" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="9">Closed Port</text>
+    <text x="50" y="135" text-anchor="middle" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="9">Host Down</text>
+  </g>
+
+  <!-- Swatch 6: Background Light -->
+  <g transform="translate(568, 18)" filter="url(#swatch-shadow)">
+    <rect width="100" height="144" rx="10" fill="#111827" stroke="#1E293B" stroke-width="1"/>
+    <rect x="10" y="10" width="80" height="52" rx="6" fill="#F7F8FC" stroke="#CBD5E1" stroke-width="0.8"/>
+    <text x="50" y="80" text-anchor="middle" fill="#F8FAFC" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700">Background</text>
+    <text x="50" y="96" text-anchor="middle" fill="#94A3B8" font-family="ui-monospace, monospace" font-size="10" font-weight="600">#F7F8FC</text>
+    <line x1="16" y1="108" x2="84" y2="108" stroke="#1E293B" stroke-width="1"/>
+    <text x="50" y="123" text-anchor="middle" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="9">Report Canvas</text>
+    <text x="50" y="135" text-anchor="middle" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="9">Light Theme</text>
+  </g>
+
+  <!-- Swatch 7: Surface White -->
+  <g transform="translate(678, 18)" filter="url(#swatch-shadow)">
+    <rect width="100" height="144" rx="10" fill="#111827" stroke="#1E293B" stroke-width="1"/>
+    <rect x="10" y="10" width="80" height="52" rx="6" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="0.8"/>
+    <text x="50" y="80" text-anchor="middle" fill="#F8FAFC" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700">Surface</text>
+    <text x="50" y="96" text-anchor="middle" fill="#94A3B8" font-family="ui-monospace, monospace" font-size="10" font-weight="600">#FFFFFF</text>
+    <line x1="16" y1="108" x2="84" y2="108" stroke="#1E293B" stroke-width="1"/>
+    <text x="50" y="123" text-anchor="middle" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="9">Report Cards</text>
+    <text x="50" y="135" text-anchor="middle" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="9">Terminal Text</text>
+  </g>
+
+  <!-- Swatch 8: Text Primary -->
+  <g transform="translate(788, 18)" filter="url(#swatch-shadow)">
+    <rect width="100" height="144" rx="10" fill="#111827" stroke="#1E293B" stroke-width="1"/>
+    <rect x="10" y="10" width="80" height="52" rx="6" fill="#182033"/>
+    <text x="50" y="80" text-anchor="middle" fill="#F8FAFC" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700">Text</text>
+    <text x="50" y="96" text-anchor="middle" fill="#94A3B8" font-family="ui-monospace, monospace" font-size="10" font-weight="600">#182033</text>
+    <line x1="16" y1="108" x2="84" y2="108" stroke="#1E293B" stroke-width="1"/>
+    <text x="50" y="123" text-anchor="middle" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="9">Headings &amp; UI</text>
+    <text x="50" y="135" text-anchor="middle" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="9">Body Font</text>
+  </g>
+</svg>

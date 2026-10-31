@@ -1,174 +1,141 @@
 # Automated Network Reconnaissance Tool
 
-An automated network reconnaissance and vulnerability auditing toolkit built with Bash and Nmap, designed to perform rapid host discovery, comprehensive port enumeration, and structured security reporting.
+<div align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=12,20,26&height=220&section=header&text=Automated%20Network%20Recon&fontSize=42&fontAlignY=38&animation=twinkling&desc=Modular%20Bash%20%7C%20Nmap%20Orchestration%20%7C%20Audit%20Reporting&descFontSize=18&descAlignY=60&descAlign=50" width="100%" />
 
-[![Language](https://img.shields.io/badge/Language-Bash_Script-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://www.gnu.org/software/bash/)
-[![Engine](https://img.shields.io/badge/Security-Nmap-002B36?style=for-the-badge)](https://nmap.org/)
-[![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
-[![Platform](https://img.shields.io/badge/Platform-Linux_|_Unix_|_macOS-FCC624?style=for-the-badge&logo=linux&logoColor=black)](https://www.kernel.org/)
-
----
-
-## Project Overview
-
-Conducting manual network reconnaissance across enterprise infrastructure is repetitive and prone to inconsistent documentation. The Automated Network Reconnaissance Tool standardizes scanning workflows into an efficient, scriptable Bash utility. By encapsulating Nmap's powerful scanning primitives behind configurable execution modes (`quick`, `normal`, `full`), security professionals can rapidly discover live systems, detect outdated services, and produce formatted audit reports.
-
-**Vision:** Streamline security assessments and perimeter auditing through reliable, repeatable automation that adheres to security best practices.
+  [![Language](https://img.shields.io/badge/Language-GNU_Bash-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://www.gnu.org/software/bash/)
+  [![Engine](https://img.shields.io/badge/Security-Nmap_7.x+-002B36?style=for-the-badge&logo=wireshark&logoColor=white)](https://nmap.org/)
+  [![Platform](https://img.shields.io/badge/Platform-Linux_|_Unix_|_macOS-FCC624?style=for-the-badge&logo=linux&logoColor=black)](https://www.kernel.org/)
+  [![Standards](https://img.shields.io/badge/Linter-ShellCheck%20Clean-00599C?style=for-the-badge&logo=gnubash&logoColor=white)](https://www.shellcheck.net/)
+  [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
+</div>
 
 ---
 
-## Key Features
+## 📌 Executive Overview
 
-- **Multi-Tier Scan Modes:**
-  - `quick`: Fast SYN scan targeting top standard ports for rapid discovery.
-  - `normal`: Standard TCP port scan with service banner grabbing and default NSE script execution.
-  - `full`: Exhaustive 65,535 port audit with aggressive operating system fingerprinting and vulnerability detection scripts.
-- **Structured Output Generation:** Generates clean plaintext reports and machine-parseable XML files suitable for SIEM or vulnerability pipeline ingestion.
-- **Robust Command-Line Interface:** Standardized argument parsing supporting flags (`-t/--target`, `-m/--mode`, `-o/--output`, `-h/--help`).
-- **Target Flexibility:** Supports scanning individual IPv4/IPv6 addresses, fully qualified domain names (FQDNs), and CIDR subnet notations.
-- **Execution Safeguards:** Validates target reachability, verifies user permissions, and ensures necessary dependencies are installed before execution.
+The **Automated Network Reconnaissance Tool** is an automated network security auditing and host enumeration utility developed in GNU Bash and powered by Nmap. Built for cybersecurity engineers, penetration testers, and network administrators, it transforms complex multi-step reconnaissance tasks into consistent, scriptable command invocations.
+
+Operating with zero runtime dependencies beyond Bash and Nmap, the utility automates alive-host discovery, TCP/UDP port mapping, OS fingerprinting, and service version detection while saving synchronized output into human-readable plaintext logs and machine-parseable XML.
 
 ---
 
-## Use Cases
-
-### For Penetration Testers & Red Teams
-- Quickly execute standardized host discovery and service enumeration during initial engagement phases.
-- Automate report generation to maintain an auditable paper trail of reconnaissance actions.
-
-### For System Administrators & Blue Teams
-- Audit network perimeter surfaces regularly to catch rogue services or unintentionally exposed ports.
-- Validate firewall filtering rules following infrastructure migrations or configuration updates.
-
----
-
-## System Architecture
+## 🏛️ System Architecture Flow
 
 ```
-+---------------------------------------------------------------+
-|               Command-Line Invocation (scan.sh)               |
-|  Flags: -t <target>  -m <quick|normal|full>  -o <txt|xml>    |
-+---------------------------------------------------------------+
-                                |
-                                v
-+---------------------------------------------------------------+
-|                  Execution & Parsing Engine                   |
-|  - Parameter Validation        - Target Resolution            |
-|  - Scan Profile Selection      - Dependency Verification      |
-+---------------------------------------------------------------+
-                                |
-                                v
-+---------------------------------------------------------------+
-|                    Nmap Engine Orchestration                  |
-|  - Quick: Fast TCP SYN Scan (-F -T4)                          |
-|  - Normal: Service Detection (-sV -sC -T4)                   |
-|  - Full: All Ports + Aggressive NSE Scripting (-p- -A)       |
-+---------------------------------------------------------------+
-                                |
-                                v
-+---------------------------------------------------------------+
-|                       Report Artifacts                        |
-|  - Structured Plaintext Report (.txt)                         |
-|  - Machine-Parseable XML (.xml)                               |
-+---------------------------------------------------------------+
++------------------------------------------------------------------------------------------------------------------------+
+|                                    Automated Network Reconnaissance Architecture Flow                                  |
++--------------------------+          +-------------------------+          +-----------------------+          +----------+
+|  SecOps Analyst          |   EXEC   |  Scan Dispatcher        |  PROBE   |   Nmap Recon Engine   |  STORE   |Structured|
+|  (Terminal CLI Client)   | <======> |  (Modular Bash scan.sh) | <======> |   (Raw Sockets & NSE) | <======> |Audit Log |
+|  - Flags (-t / -m / -o)  |   Args   |  - Pre-flight & Modes   | Sockets  |   - SYN/TCP, OS & NSE |  Stream  |TXT & XML |
++--------------------------+          +-------------------------+          +-----------------------+          +----------+
+```
+
+<p align="center" style="margin: 20px 0;">
+  <img src="docs/architecture.svg" alt="Automated Network Reconnaissance Architecture Flow" width="100%" />
+</p>
+
+---
+
+## 📚 Complete Engineering Documentation
+
+The repository features a complete 6-file engineering specification suite located in the [`docs/`](./docs) directory:
+
+| Document | Description | Status |
+|---|---|---|
+| 📄 **[PRD.md](./docs/PRD.md)** | Product Requirements Document: Vision, target personas, KPIs, functional and non-functional specifications. | `Complete` |
+| 🏗️ **[ARCHITECTURE.md](./docs/ARCHITECTURE.md)** | Architectural topology, component pipeline, scan modes matrix, and ADRs. | `Complete` |
+| 🛡️ **[RULES.md](./docs/RULES.md)** | Engineering standards: ShellCheck compliance, variable quoting, signal traps, and secure logging. | `Complete` |
+| 🎨 **[DESIGN.md](./docs/DESIGN.md)** | Terminal UX design, color palette tokens, typography, ASCII banners, and telemetry layout. | `Complete` |
+| 📋 **[TASKS.md](./docs/TASKS.md)** | Engineering task breakdown across 4 phases (20 deliverables completed) with clean status tracking. | `Complete` |
+| 🧠 **[MEMORY.md](./docs/MEMORY.md)** | Operational invariants, security guardrails, completed milestones, and knowledge base tracking. | `Complete` |
+
+---
+
+## ✨ Key Features & Scan Capabilities
+
+- **Standardized Multi-Tier Scanning:**
+  - `quick`: High-speed SYN scan targeting top 100 ports using aggressive timing (`-F -T4`).
+  - `normal`: Comprehensive top 1,000 TCP port scan with ICMP ping sweep and service banner grabbing (`-sV`).
+  - `full`: Exhaustive 65,535-port audit (`-p-`), operating system detection (`-O`), and default NSE script execution (`-sC`).
+- **Dual-Stream Telemetry:** Real-time terminal output streaming while simultaneously persisting to a timestamped file via `tee`.
+- **SIEM-Ready XML Export:** Option to generate structured `-oX` XML reports for automated vulnerability ingestion pipelines.
+- **Robust POSIX CLI:** Full support for both short (`-t`, `-m`, `-o`, `-h`) and long (`--target`, `--mode`, `--output`, `--help`) argument syntax.
+- **Fail-Safe Pre-flight Checks:** Verifies argument validity, network target specifications, and binary dependencies prior to scanning.
+
+---
+
+## 🛠️ Scan Modes Matrix
+
+| Mode Flag | Port Scope | Timing | Probes & Detection | Primary Objective |
+|---|---|---|---|---|
+| `quick` | Top 100 Ports | `-T4` | Fast TCP SYN / Connect | Rapid alive-host triage |
+| `normal` | Top 1,000 Ports | `-T3` | ICMP + TCP + Service Version | Standard perimeter assessment |
+| `full` | All 65,535 Ports | `-T4` | TCP SYN + OS Fingerprint + NSE Scripts | Comprehensive penetration testing audit |
+
+---
+
+## 🚀 Quickstart & Usage Guide
+
+### Prerequisites
+- GNU Bash 4.0 or higher
+- Nmap 7.x or higher installed and available in `$PATH`
+- Linux, macOS, or Unix-like environment
+
+### 1. Clone & Set Permissions
+```bash
+git clone https://github.com/abhishek4643/Nmap-Project.git
+cd Nmap-Project
+chmod +x scan.sh example_usage.sh
+```
+
+### 2. Basic Invocations
+```bash
+# Display help and argument reference
+./scan.sh -h
+
+# Quick scan on a local host
+./scan.sh -t 192.168.1.1 -m quick
+
+# Normal scan on a domain with default TXT output
+./scan.sh -t example.com -m normal
+
+# Full deep scan with machine-readable XML output (requires sudo for raw sockets)
+sudo ./scan.sh -t 192.168.1.100 -m full -o xml
 ```
 
 ---
 
-## Technology Stack
-
-| Layer | Technologies |
-|---|---|
-| Scripting Language | Bash (Bourne-Again SHell) >= 4.0 |
-| Core Reconnaissance Engine | Nmap (Network Mapper) >= 7.80 |
-| Utilities | POSIX Coreutils (grep, sed, awk, date, tee) |
-| Output Formats | Plaintext (.txt), XML (.xml) |
-| Target Platforms | Linux (Ubuntu, Debian, Kali, Arch), macOS |
-
----
-
-## Project Structure
+## 📂 Directory Structure
 
 ```
 Nmap-Project/
-├── scan.sh                     # Main automated reconnaissance script
-├── example_usage.sh            # Demonstration scenarios and automated test runs
-├── RUNNING_INSTRUCTIONS.txt    # Step-by-step setup and execution guide
-├── LICENSE                     # MIT open-source license
-└── README.md                   # Project documentation
+├── docs/                           # Complete Engineering Documentation Suite
+│   ├── architecture.svg            # Responsive pastel architecture flow card
+│   ├── palette.svg                 # Visual 8-color design palette card
+│   ├── principles.svg              # 4-card design principles vector card
+│   ├── PRD.md                      # Product Requirements Document
+│   ├── ARCHITECTURE.md             # System Architecture Specifications
+│   ├── RULES.md                    # Engineering Rules & Scripting Standards
+│   ├── DESIGN.md                   # Design System & CLI Specifications
+│   ├── TASKS.md                    # Engineering Checklist & Tasks
+│   └── MEMORY.md                   # System Memory & Context State
+├── example_usage.sh                # Automated example execution scenarios
+├── LICENSE                         # MIT License
+├── README.md                       # Master Repository Overview
+├── RUNNING_INSTRUCTIONS.txt        # Detailed execution and environment instructions
+└── scan.sh                         # Main automated reconnaissance script
 ```
 
 ---
 
-## Getting Started
+## 👤 Author & Contact
 
-### Prerequisites
-- POSIX-compliant operating system (Linux, macOS, or WSL2 on Windows)
-- Bash 4.0 or higher
-- Nmap installed and accessible via `PATH`
-
-Install Nmap on Debian/Ubuntu/Kali:
-```bash
-sudo apt update && sudo apt install -y nmap
-```
-
-Install Nmap on macOS (via Homebrew):
-```bash
-brew install nmap
-```
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/abhishek4643/Nmap-Project.git
-   cd Nmap-Project
-   ```
-
-2. Grant execution permissions:
-   ```bash
-   chmod +x scan.sh example_usage.sh
-   ```
-
-### Usage Examples
-
-Display help and available options:
-```bash
-./scan.sh -h
-```
-
-Execute a rapid scan against a target:
-```bash
-./scan.sh -t 192.168.1.1 -m quick
-```
-
-Perform a comprehensive scan with XML report output:
-```bash
-sudo ./scan.sh -t scanme.nmap.org -m full -o xml
-```
-
-Run the pre-configured demonstration scenarios:
-```bash
-./example_usage.sh
-```
-
----
-
-## Future Roadmap
-
-- Automated HTML dashboard report generation using custom XSL stylesheets.
-- Slack and Discord webhook integration to broadcast critical open port discoveries.
-- Passive DNS and WHOIS reconnaissance module integration.
-- Multi-threaded batch CIDR subnet scanning queue.
-
----
-
-## Disclaimer
-
-This tool is designed strictly for authorized educational and defensive security auditing purposes. Scanning targets without explicit prior authorization is illegal. The author assumes no liability for misuse.
-
----
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+**Abhishek Perumalla**
+- **Email:** [abhishekp.perumalla@gmail.com](mailto:abhishekp.perumalla@gmail.com)
+- **Phone:** +91-8919415774
+- **Location:** Hyderabad, India
+- **Portfolio:** [https://portfolio-three-omega-ahkmg9l6l4.vercel.app/](https://portfolio-three-omega-ahkmg9l6l4.vercel.app/)
+- **GitHub:** [https://github.com/abhishek4643](https://github.com/abhishek4643)
+- **LinkedIn:** [https://www.linkedin.com/in/abhishek-perumalla-a1ab57251](https://www.linkedin.com/in/abhishek-perumalla-a1ab57251)
