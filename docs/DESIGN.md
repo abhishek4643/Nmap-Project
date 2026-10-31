@@ -107,3 +107,4 @@ When `-o xml` is supplied, Nmap generates well-formed XML:
 </nmaprun>
 ```
 This structured XML enables ingestion into tools like Splunk, ELK, Nessus, or custom Python analytics dashboards.
+

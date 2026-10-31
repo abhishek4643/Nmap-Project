@@ -9,7 +9,7 @@ This document describes the architectural flow, component relationships, executi
 
 ---
 
-### 1. High-Level Architecture Flow
+### 1. High-Level Architecture
 
 The tool employs a decoupled execution pipeline separating command-line argument validation, pre-flight environment checks, Nmap socket orchestration, and structured file persistence:
 
@@ -17,64 +17,85 @@ The tool employs a decoupled execution pipeline separating command-line argument
   <img src="./architecture.svg" alt="Automated Network Reconnaissance Architecture Flow" width="100%" />
 </p>
 
+---
+
+### 2. Technology Stack & Scan Matrix
+
+Technologies and scan configurations used across the reconnaissance suite:
+
+| Component | Tool / Standard | Version | Implementation Detail |
+|---|---|---|---|
+| **Scripting Language** | GNU Bash | 4.0+ | POSIX-compliant modular shell script with signal trap handling |
+| **Scanning Engine** | Nmap (Network Mapper) | 7.x+ | Raw socket SYN probes, OS fingerprinting, and NSE execution |
+| **Output Pipeline** | GNU Coreutils (`tee`) | Standard | Dual-stream non-blocking stdout display and disk file appending |
+| **Quick Scan Mode** | `-F -T4` | Top 100 | High-speed host discovery and responsive service verification |
+| **Normal Scan Mode** | `-sn`, `-sV` | Top 1,000 | ICMP ping sweep, TCP SYN probe, and service banner grabbing |
+| **Full Scan Mode** | `-p- -sV -O -sC` | 65,535 | Exhaustive port audit with OS fingerprinting and default scripts |
+
+---
+
+### 3. Folder Structure
+
+The project follows a clean, modular structure separating execution scripts, automation runners, and documentation:
+
+```text
+Nmap-Project/
+|-- docs/                               # Complete Engineering Documentation Suite
+|   |-- ARCHITECTURE.md                 # System Topology & Algorithm Specifications
+|   |-- DESIGN.md                       # Design System & CLI Specifications
+|   |-- MEMORY.md                       # Operational State & Milestone Log
+|   |-- PRD.md                          # Product Requirements & User Scenarios
+|   |-- RULES.md                        # Engineering Conventions & Scripting Rules
+|   |-- TASKS.md                        # Phased Roadmap with 20 Deliverables
+|   |-- architecture.svg                # Custom 4-Card Vector Topology
+|   |-- palette.svg                     # 8-Swatch Design System Vector Palette
+|   `-- principles.svg                  # 4-Card Design Principles Vector
+|-- example_usage.sh                    # Automated Example Execution Scenarios
+|-- LICENSE                             # MIT Open-Source License
+|-- README.md                           # Master Repository Overview
+|-- RUNNING_INSTRUCTIONS.txt            # Environment & Command Setup Guide
+`-- scan.sh                             # Primary Automated Reconnaissance CLI
 ```
-+------------------------------------------------------------------------------------------------------------------------+
-|                                    Automated Network Reconnaissance Architecture Flow                                  |
-+--------------------------+          +-------------------------+          +-----------------------+          +----------+
-|  SecOps Analyst          |   EXEC   |  Scan Dispatcher        |  PROBE   |   Nmap Recon Engine   |  STORE   |Structured|
-|  (Terminal CLI Client)   | <======> |  (Modular Bash scan.sh) | <======> |   (Raw Sockets & NSE) | <======> |Audit Log |
-|  - Flags (-t / -m / -o)  |   Args   |  - Pre-flight & Modes   | Sockets  |   - SYN/TCP, OS & NSE |  Stream  |TXT & XML |
-+--------------------------+          +-------------------------+          +-----------------------+          +----------+
+
+---
+
+### 4. Reconnaissance & Dispatch Pipeline
+
+```text
+[ User Input: CLI Target & Flags (-t, -m, -o) ]
+                         |
+                         v
+[ Pre-Flight Validation: Nmap Binary Check & Target Format Verify ]
+                         |
+                         v
+[ Mode Evaluator: Selects Execution Profile (quick / normal / full) ]
+                         |
+        +----------------+----------------+
+        |                |                |
+        v                v                v
+[ Quick Scan ]    [ Normal Scan ]    [ Full Scan ]
+(Top 100 Ports)   (Top 1,000 Ports)  (65,535 Ports)
+(-F -T4)          (-sn, -sV)         (-p- -sV -O -sC)
+        |                |                |
+        +----------------+----------------+
+                         |
+                         v
+[ Dual-Stream Redirection via GNU tee -a ]
+                         |
+        +----------------+----------------+
+        |                                 |
+        v                                 v
+[ Real-Time Monospace Terminal ] [ Timestamped Audit Artifact ]
+(ANSI Color Indicators)          (.txt Plaintext / .xml Schema)
 ```
 
 ---
 
-### 2. Core Architectural Subsystems
+### 5. Key Architectural Decisions (ADRs)
 
-#### 2.1 CLI Interface & Argument Parsing Layer
-- **POSIX Argument Evaluator:** Processes short (`-t`, `-m`, `-o`, `-h`) and long (`--target`, `--mode`, `--output`, `--help`) CLI options.
-- **Input Sanitization & Normalization:** Validates target strings against IP regex patterns or hostname formats, preventing arbitrary command injection.
-- **Help Subsystem:** Provides immediate terminal usage documentation and real-world invocation examples.
-
-#### 2.2 Pre-Flight & Environment Subsystem
-- **Dependency Verifier:** Checks for the presence of the `nmap` binary in the system `$PATH` using `command -v nmap`.
-- **Privilege Evaluator:** Inspects user permissions (UID 0 vs non-root) to warn or adapt scan types that require raw socket privileges (e.g., SYN `-sS` and OS detection `-O`).
-- **File System Initialization:** Pre-allocates unique timestamped output file paths to prevent accidental overwrites.
-
-#### 2.3 Scan Mode Orchestration Engine
-- **Quick Mode Pipeline:** Configured with `-F -T4` (fast scan of top 100 ports with aggressive timing) for rapid host verification.
-- **Normal Mode Pipeline:** Executes host discovery ping sweep (`-sn`), followed by top 1,000 TCP port scan and service banner grabbing (`-sV`).
-- **Full Mode Pipeline:** Comprehensive 65,535-port interrogation (`-p-`), OS detection (`-O`), aggressive service version discovery (`-sV`), and default NSE vulnerability scripts (`-sC`).
-
-#### 2.4 Output Streaming & Reporting Pipeline
-- **Dual-Stream Redirection:** Utilizes GNU `tee` with append flag (`-a`) to provide zero-latency terminal feedback while simultaneously creating an immutable log record.
-- **Structured XML Generation:** When requested via `-o xml`, invokes Nmap's native `-oX` flag to produce schema-compliant XML suitable for automated SIEM pipelines or Python ETL parsers.
-
----
-
-### 3. Scan Mode Specifications Matrix
-
-| Mode Flag | Port Scope | Timing | Probe Types | Flags Utilized | Primary Use Case |
-|---|---|---|---|---|---|
-| `quick` | Top 100 Ports | `-T4` | TCP SYN / Connect | `-F -T4` | Rapid alive-host triage |
-| `normal` | Top 1,000 Ports | `-T3` | ICMP + TCP + Banners | `-sn`, `-sV` | Standard infrastructure audit |
-| `full` | All 65,535 Ports | `-T4` | TCP SYN + OS + NSE | `-p- -sV -O -sC` | Deep perimeter vulnerability audit |
-
----
-
-### 4. Architectural Decision Records (ADRs)
-
-#### ADR-01: Native GNU Bash Implementation
-- **Context:** Reconnaissance tools are frequently deployed in ephemeral containers, cloud bastions, and air-gapped jump hosts where Python runtimes or virtual environments may not exist.
-- **Decision:** Implement the orchestration pipeline purely in POSIX-compliant GNU Bash.
-- **Consequences:** Eliminates external runtime dependencies; executes instantly on any Unix/Linux environment where standard `nmap` is present.
-
-#### ADR-02: Simultaneous Dual-Stream Output via `tee`
-- **Context:** Security operators need live visibility during long-running scans, while automated compliance pipelines require complete log files.
-- **Decision:** Route all probe outputs through `tee -a $filename`.
-- **Consequences:** Ensures non-blocking terminal visualization without buffering delays while guaranteeing persistent audit logs on disk.
-
-#### ADR-03: Modular Script Organization
-- **Context:** Maintainability and ease of test automation.
-- **Decision:** Encapsulate execution modes into discrete Bash functions (`run_quick_scan`, `run_normal_scan`, `run_full_scan`).
-- **Consequences:** Clean separation of concerns allowing individual modes to be tested, enhanced, or extended independently.
+* **ADR-001: Native GNU Bash Implementation**  
+  *Rationale*: Reconnaissance utilities are frequently executed on ephemeral jump hosts, remote bastions, and air-gapped systems where external runtimes (Python, Node.js) may not be installed. Building purely in POSIX-compliant GNU Bash guarantees zero runtime installation overhead.
+* **ADR-002: Simultaneous Dual-Stream Output via tee**  
+  *Rationale*: Security engineers need real-time stdout visibility during long-running audits, while compliance workflows require complete logs. Streaming output through `tee -a` guarantees simultaneous interactive feedback and permanent disk archival without buffering delays.
+* **ADR-003: Modular Function Encapsulation**  
+  *Rationale*: Hardcoding complex monolithic scan loops causes maintenance friction. Encapsulating discrete scan profiles into standalone Bash functions (`run_quick_scan`, `run_normal_scan`, `run_full_scan`) ensures modularity and testability.

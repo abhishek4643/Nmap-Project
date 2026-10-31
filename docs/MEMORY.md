@@ -62,3 +62,4 @@ The following invariants must be maintained across all modifications:
 - **Example Runner:** `example_usage.sh`: Sample execution scenarios.
 - **Setup Guide:** `RUNNING_INSTRUCTIONS.txt`: Detailed prerequisites and platform instructions.
 - **Documentation Suite:** `docs/` (`PRD.md`, `ARCHITECTURE.md`, `RULES.md`, `DESIGN.md`, `TASKS.md`, `MEMORY.md`, `architecture.svg`, `palette.svg`, `principles.svg`).
+

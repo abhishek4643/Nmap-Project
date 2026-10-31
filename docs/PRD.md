@@ -87,3 +87,4 @@ Network reconnaissance during vulnerability assessments faces frequent bottlenec
 ### 6.2 Security & Operational Hygiene
 - Prompt for or enforce elevated privileges (`sudo`) when advanced raw socket modes (OS fingerprinting, SYN scanning) are requested.
 - Strip sensitive terminal escape sequences before persisting to log files.
+

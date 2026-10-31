@@ -71,3 +71,4 @@ All modifications to scripts within the **Automated Network Reconnaissance Tool*
 
 - **File Permissions:** Ensure executable scripts maintain the executable bit (`chmod +x scan.sh`).
 - **No Residual Artifacts:** Never commit output `.txt` or `.xml` scan reports from live engagements to the repository. The `.gitignore` must exclude `*.txt`, `*.xml`, and temporary scan logs.
+
