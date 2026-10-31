@@ -33,8 +33,13 @@ Operating with zero runtime dependencies beyond Bash and Nmap, the utility autom
 ```
 
 <p align="center" style="margin: 20px 0;">
-  <img src="docs/architecture.svg" alt="Automated Network Reconnaissance Architecture Flow" width="100%" />
+  <img src="./docs/architecture.svg" alt="Automated Network Reconnaissance Architecture Flow" width="100%" />
 </p>
+
+* **SecOps Analyst (Terminal CLI Client)**: Operator terminal interface supporting dynamic target flags (`-t`), scan modes (`-m`), and output paths (`-o`).
+* **Scan Dispatcher (Modular Bash / scan.sh)**: Pre-flight permission validator, CIDR subnet parser, and multi-tier mode routing matrix (Quick, Normal, Full).
+* **Nmap Recon Engine (Service & Port Probing)**: High-performance TCP SYN stealth scanning (`-sS`), OS fingerprinting (`-O`), and NSE vulnerability scripts (`-sC`).
+* **Audit Reports (Structured Artifacts)**: Timestamped plaintext human-readable summaries and machine-parsable XML reports stored in `scans/`.
 
 ---
 

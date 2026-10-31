@@ -17,6 +17,11 @@ The tool employs a decoupled execution pipeline separating command-line argument
   <img src="./architecture.svg" alt="Automated Network Reconnaissance Architecture Flow" width="100%" />
 </p>
 
+* **SecOps Analyst (Terminal CLI Client)**: Operator terminal interface supporting dynamic target flags (`-t`), scan modes (`-m`), and output paths (`-o`).
+* **Scan Dispatcher (Modular Bash / scan.sh)**: Pre-flight permission validator, CIDR subnet parser, and multi-tier mode routing matrix (Quick, Normal, Full).
+* **Nmap Recon Engine (Service & Port Probing)**: High-performance TCP SYN stealth scanning (`-sS`), OS fingerprinting (`-O`), and NSE vulnerability scripts (`-sC`).
+* **Audit Reports (Structured Artifacts)**: Timestamped plaintext human-readable summaries and machine-parsable XML reports stored in `scans/`.
+
 ---
 
 ### 2. Technology Stack & Scan Matrix
